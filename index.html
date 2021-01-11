@@ -8,7 +8,7 @@
   <style>
     * {
       font-family: Arial;
-      font-size: 25px;
+      font-size: 40px;
     }
 
     input {
@@ -43,15 +43,13 @@
 
     let n = 0;
     let a = 1;
-    let op = "*";
+    let op = "⋅";
     let b = 1;
     let c = 1;
     const multipliers = [2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10];
-    const tables = [2, 3, 3, 3, 4, 4, 4, 5, 5, 8, 8, 10];
+    const tables = [2, 3, 3, 3, 4, 4, 4, 4, 5, 5, 8, 8, 10];
 
     function getRandomInt(min, max) {
-      min = Math.ceil(min);
-      max = Math.floor(max);
       return Math.floor(Math.random() * (max - min) + min);
     }
 
@@ -73,10 +71,10 @@
       const m = multipliers[getRandomInt(0, multipliers.length)];
       const t = tables[getRandomInt(0, tables.length)];
       const r = m * t;
-      op = Math.random() < 0.5 ? "*" : ":";
-      a = op === "*" ? m : r;
-      b = op === "*" ? t : t;
-      c = op === "*" ? r : m;
+      op = Math.random() < 0.5 ? "⋅" : ":";
+      a = op === "⋅" ? m : r;
+      b = op === "⋅" ? t : t;
+      c = op === "⋅" ? r : m;
       spanAOpBEq.textContent = `${a} ${op} ${b} = `;
       inputC.value = "";
     }
