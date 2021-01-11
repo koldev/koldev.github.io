@@ -46,8 +46,8 @@
     let op = "*";
     let b = 1;
     let c = 1;
-    const tables = [2, 3, 3, 3, 4, 4, 4, 5, 5, 8, 8, 10];
     const multipliers = [2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10];
+    const tables = [2, 3, 3, 3, 4, 4, 4, 5, 5, 8, 8, 10];
 
     function getRandomInt(min, max) {
       min = Math.ceil(min);
@@ -70,13 +70,13 @@
         }
         divLog.prepend(p);
       }
-      const x = multipliers[getRandomInt(0, multipliers.length)];
-      const y = tables[getRandomInt(0, tables.length)];
-      const z = x * y;
+      const m = multipliers[getRandomInt(0, multipliers.length)];
+      const t = tables[getRandomInt(0, tables.length)];
+      const r = m * t;
       op = Math.random() < 0.5 ? "*" : ":";
-      a = op === "*" ? x : z;
-      b = op === "*" ? y : y;
-      c = op === "*" ? z : x;
+      a = op === "*" ? m : r;
+      b = op === "*" ? t : t;
+      c = op === "*" ? r : m;
       spanAOpBEq.textContent = `${a} ${op} ${b} = `;
       inputC.value = "";
     }
