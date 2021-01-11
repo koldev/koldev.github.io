@@ -1,11 +1,95 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>koldev's homepage</title>
-    <link rel="shortcut icon" href="/img/favicon.ico" />
-  </head>
-  <body>
-    <p>teszt</p>
-  </body>
+
+<head>
+  <meta charset="UTF-8">
+  <title>koldev's homepage</title>
+  <link rel="shortcut icon" href="/img/favicon.ico" />
+  <style>
+    * {
+      font-family: Arial;
+      font-size: 25px;
+    }
+
+    input {
+      width: 50px;
+    }
+
+    div {
+      margin-top: 10px;
+    }
+
+    p {
+      margin: 0 0 10px 0;
+    }
+
+    p.red {
+      color: red;
+    }
+
+    p.green {
+      color: green;
+    }
+  </style>
+</head>
+
+<body>
+  <span id="a-op-b-eq"></span><input type="text" id="c" />
+  <div id="log"></div>
+  <script>
+    const spanAOpBEq = document.querySelector("span#a-op-b-eq");
+    const inputC = document.querySelector("input#c");
+    const divLog = document.querySelector("div#log");
+
+    let n = 0;
+    let a = 1;
+    let op = "*";
+    let b = 1;
+    let c = 1;
+    const tables = [2, 3, 3, 4, 4, 5, 8, 8, 10];
+    const multipliers = [2, 3, 3, 4, 4, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10];
+
+    function getRandomInt(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min) + min);
+    }
+
+    function update(check) {
+      if (check) {
+        const stringC = inputC.value.trim();
+        const userC = +stringC;
+        const p = document.createElement("p");
+        p.textContent = `${++n}. feladat: ${a} ${op} ${b} = ${c}`;
+        if (userC === c) {
+          p.textContent += ", ÜGYES VAGY!";
+          p.classList.add("green");
+        } else {
+          p.textContent += `, tehát ${userC} nem jó... gyakorolj tovább!`;
+          p.classList.add("red");
+        }
+        divLog.prepend(p);
+      }
+      const x = multipliers[getRandomInt(0, multipliers.length)];
+      const y = tables[getRandomInt(0, tables.length)];
+      const z = x * y;
+      op = Math.random() < 0.5 ? "*" : ":";
+      side = Math.random() < 0.5 ? 1 : 2;
+      a = op === "*" ? (side === 1 ? x : y) : z;
+      b = op === "*" ? (side === 1 ? y : x) : (side === 1 ? x : y);
+      c = op === "*" ? z : (side === 1 ? y : x);
+      spanAOpBEq.textContent = `${a} ${op} ${b} = `;
+      inputC.value = "";
+    }
+
+    inputC.addEventListener("keyup", event => {
+      if (event.key === "Enter" && inputC.value !== "") {
+        update(true);
+      }
+    });
+
+    update(false);
+  </script>
+</body>
+
 </html>
