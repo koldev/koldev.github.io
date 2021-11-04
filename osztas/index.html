@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html>
+<head> 
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv='cache-control' content='no-cache, must-revalidate'> 
+	<meta http-equiv='expires' content='0'> 
+	<meta http-equiv='pragma' content='no-cache'>
+    <title> 
+        Írásbeli osztás kétjegyű számmal 
+    </title> 
+</head> 
+<body>
+	<h1>Írásbeli osztás kétjegyű számmal </h1>
+	<div class="scoreboard">
+		<div class="scoreboardbelso"><p style="display:inline-block" id="score"></p> / <p style="display:inline-block" id="reloaded"></p></div>
+		<div class="scoreboardbelso"><p id="szazalek"></p></div>
+		<div class="scoreboardbelso"><p id="totalscore"></p></div>
+	</div>
+	<p id="p1">Először döntsd el, két, vagy három jegyből képzett számot kell először osztanod. Jelöld ki!</p>
+	<p id="p2" style="display:none">Végezd el az első osztást!</p> 
+	<p id="p3" style="display:none">Szorozz vissza, számold ki a maradékot!</p>
+	<p id="p4" style="display:none">Kattintással hozd le a következő jegyet, és végezd el az osztást!</p>
+	<p id="p5" style="display:none">Ügyes voltál, egy pontot nyertél!</p>
+	<button class="button" id="p5button" style="display:none" onclick="reload()">Gyakorolnám még!</button>
+	<label class="container2"> 
+		<input type="radio" id ="radio1bal" name="2or3" onclick="jorakatt1()">
+		<span class="checkmark" id ="radio11bal" style="position:absolute;left:155px;" ></span> 
+	</label>
+	<label class="container2">
+		<input type="radio" id="radio1jobb" name="2or3" onclick="jorakatt1()">
+		<span class="checkmark" id="radio11jobb" style="position:absolute;left:240px;" ></span>
+	</label>
+	<label class="container2" id ="radio3" style="display:none"> 
+		<input type="radio" id ="radio3b" name="harmadikjegy" onclick="jlatszon()">
+		<span class="checkmark" id ="radio221" style="position:absolute;left:240px;" ></span> 
+	</label>
+	<label class="container2" id ="radio4"style="display:none"> 
+		<input type="radio" id ="radio4b" name="negyedikjegy" onclick="jllatszon()">
+		<span class="checkmark" id ="radio222" style="position:absolute;left:320px;" ></span> 
+	</label>
+	<label class="container2" id ="radio5"style="display:none"> 
+		<input type="radio" id ="radio5b" name="otodikjegy" onclick="lnlatszon()">
+		<span class="checkmark" id ="radio223" style="position:absolute;left:400px;"  ></span> 
+	</label>
+	<br><br>	
+<div class="container1">
+  <div class="grid">
+    <div class="cell"><p id="a"></p></div>
+    <div class="cell"><p id="b"></p></div>
+    <div class="cell"><p id="c"></p></div>
+    <div class="cell"><p id="d"></p></div>
+    <div class="cell"><p id="e"></p></div>
+    <div class="cell">:</div>
+    <div class="cell"><p id="f"></p></div>
+    <div class="cell"><p id="g"></p></div>
+    <div class="cell">=</div>
+	<div class="cell" id="c10"><input type="number" id="h" name="h" oninput="if(value.length>1)value=value.slice(0,1);osztas()" style="display:none"></div>
+	<div class="cell" id="c11"><input type="number" id="j" name="j" oninput="if(value.length>1)value=value.slice(0,1);osztas2()" style="display:none"></div>
+	<div class="cell" id="c12"><input type="number" id="l" name="l" oninput="if(value.length>1)value=value.slice(0,1);osztas3()" style="display:none"></div>
+	<div class="cell" id="c13"><input type="number" id="n" name="n" oninput="if(value.length>1)value=value.slice(0,1);osztas4()" style="display:none"></div>
+	<div class="cell"></div>
+	<div class="cell" id="c15"><input type="number" id="m1" name="m1" oninput="if(value.length>1)value=value.slice(0,1);maradek()" style="display:none"></div> 
+	<div class="cell" id="c16"><input type="number" id="m2" name="m1" oninput="if(value.length>1)value=value.slice(0,1);maradek()" style="display:none"></div>
+	<div class="cell" id="c17"><input type="number" id="m3" name="m1" oninput="if(value.length>1)value=value.slice(0,1);maradek()" style="display:none"></div>
+	<div class="cell" id="c18"></div>
+	<div class="cell" id="c19"></div>
+	<div class="cell" id="c20"></div>
+	<div class="cell" id="c21"></div>
+	<div class="cell" id="c22"></div>
+	<div class="cell" id="c23"><img id="left-arrow" src="left-arrow.png" style="display:none"></div>
+	<div class="cell" id="c24"></div>
+	<div class="cell" id="c25"></div>
+	<div class="cell" id="c26"></div>
+	<div class="cell" id="c27"></div>
+	<div class="cell" id="c28"></div>
+	<div class="cell" id="c29"></div>
+	<div class="cell" id="c30"><input type="number" id="m4" name="m2" oninput="if(value.length>1)value=value.slice(0,1);maradek2()" style="display:none"></div>
+	<div class="cell" id="c31"><input type="number" id="m5" name="m2" oninput="if(value.length>1)value=value.slice(0,1);maradek2()" style="display:none"></div>
+	<div class="cell" id="c32"><input type="number" id="m6" name="m2" oninput="if(value.length>1)value=value.slice(0,1);maradek2()" style="display:none"></div>
+	<div class="cell" id="c33"></div>
+	<div class="cell" id="c34"></div>
+	<div class="cell" id="c35"></div>
+	<div class="cell" id="c36"></div>
+	<div class="cell" id="c37"></div>
+	<div class="cell" id="c38"></div>
+	<div class="cell" id="c39"></div>
+	<div class="cell" id="c40"></div>
+	<div class="cell" id="c41"></div>
+	<div class="cell" id="c42"></div>
+	<div class="cell" id="c43"></div>
+	<div class="cell" id="c44"></div>
+	<div class="cell" id="c45"><input type="number" id="m7" name="m3" oninput="if(value.length>1)value=value.slice(0,1);maradek3()" style="display:none"></div>
+	<div class="cell" id="c46"><input type="number" id="m8" name="m3" oninput="if(value.length>1)value=value.slice(0,1);maradek3()" style="display:none"></div>
+	<div class="cell" id="c47"><input type="number" id="m9" name="m3" oninput="if(value.length>1)value=value.slice(0,1);maradek3()" style="display:none"></div>
+	<div class="cell" id="c48"></div>
+	<div class="cell" id="c49"></div>
+	<div class="cell" id="c50"></div>
+	<div class="cell" id="c51"></div>
+	<div class="cell" id="c52"></div>
+	<div class="cell" id="c53"></div>
+	<div class="cell" id="c54"></div>
+	<div class="cell" id="c55"></div>
+	<div class="cell" id="c56"></div>
+	<div class="cell" id="c57"></div>
+	<div class="cell" id="c58"></div>
+	<div class="cell" id="c59"></div>
+	<div class="cell" id="c60"><input type="number" id="m10" name="m4" oninput="if(value.length>1)value=value.slice(0,1);maradek4()" style="display:none"></div>
+	<div class="cell" id="c61"><input type="number" id="m11" name="m4" oninput="if(value.length>1)value=value.slice(0,1);maradek4()" style="display:none"></div>
+	<div class="cell" id="c62"></div>
+	<div class="cell" id="c63"></div>
+	<div class="cell" id="c64"></div>
+	<div class="cell" id="c65"></div>
+	<div class="cell" id="c66"></div>
+	<div class="cell" id="c67"></div>
+	<div class="cell" id="c68"></div>
+	<div class="cell" id="c69"></div>
+	<div class="cell" id="c70"></div>
+  </div>
+</div>
+
+<style>
+	.scoreboard {
+	width: 100%;
+	}
+	
+	.scoreboardbelso {
+	display: inline-block;
+	background-color: #eee;
+	border: 3px solid grey;
+	border-radius: 15px;
+	font-family: Comic Sans MS;
+	font-size: 15px;
+	width: 220px;
+	text-align:center;
+	margin-right: 20px;
+	}
+	
+	.button {
+	width: 240px;
+	height: 80px;
+	background-color: orange;
+	color: grey;
+	border: 3px solid grey;
+	border-radius: 15px;
+	font-size: 18px;
+	position: absolute;
+	top: 35%;
+	left: 35%;
+	z-index: 3;
+	
+	
+	} 
+	.button:hover {
+	background-color: #60b524;
+	color: #02003F;
+	cursor: pointer;
+	
+	}
+	p {
+		font-family: Comic Sans MS;
+		}
+	h1 {
+		font-family: Comic Sans MS;
+		}
+	
+	.container1 {
+		background: grey;
+		display: inline-block;
+		border: 3px solid grey;	
+		}
+	.grid {
+		display: grid;
+		grid-template-columns: repeat(14, 80px);
+		grid-template-rows: repeat(5, 80px);
+		grid-gap: 3px;
+		}
+	.cell {
+	/* center the cell content */
+		justify-content: center;
+		align-items: center;
+		display: flex;
+		font-family: Comic Sans MS;
+		font-size: 3rem;
+		font-weight: bold;
+		background: white;
+		color: #02003F;
+		}
+
+	input[type=number] {
+		width: 74px;
+		height: 74px;
+		font-size: 3rem;
+		font-family: Arial;
+		font-style: italic;
+		text-align: center;
+		border: 3px solid blue;
+		max: 9;
+		min: 0;
+		/* Firefox no arrows */
+		-moz-appearance: textfield;
+		}
+	/* Chrome, Safari, Edge, Opera no arrows*/
+		input::-webkit-outer-spin-button,
+		input::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+		}
+	input[type=number]:read-only {
+		border: none;
+		}
+
+	
+	/* Customize the label (the container) */
+.container2 {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.container2 input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom radio button */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+  border-radius: 50%;
+}
+
+/*On mouse-over, add a grey background color */
+.container2:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+When the radio button is checked, add a blue background 
+.container2 input:checked ~ .checkmark {
+  background-color: green;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.container2 input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.container2 .checkmark:after {
+  top: 9px;
+  left: 9px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
+}
+
+#left-arrow {
+		width: 130px;
+		display: inline;
+		position: relative;
+		z-index: 2;
+		}
+		
+</style>
+<script>
+	
+	var str_totalscore = localStorage.getItem("totalscore"),
+		str_score = sessionStorage.getItem("score"),
+		a = Math.floor(Math.random() * 10),
+		b = Math.floor(Math.random() * 10),
+		c = Math.floor(Math.random() * 10),
+		d = Math.floor(Math.random() * 10),
+		e = Math.floor(Math.random() * 10),
+		osztando = e + 10*d + 100*c + 1000*b + 10000*a,
+		oszto =  Math.floor(Math.random() * 100);
+	
+	while (oszto<10) {
+		oszto =  Math.floor(Math.random() * 100)};
+	while (a==0) {
+		a = Math.floor(Math.random() * 10)};
+	var f =  Math.floor(oszto/10),
+		g = oszto - 10*f,
+		elsoMaradek = 0,
+		negyjegyu = true;
+	if (oszto > (b+10*a)) {
+		negyjegyu = false;}
+		
+	if (str_totalscore == null || str_totalscore == "null"){
+      var totalscore = 0;
+    } else {
+      var totalscore = parseInt(str_totalscore);
+    }
+	
+	if (str_score == null || str_score == "null"){
+      var score = 0;
+    } else {
+      var score = parseInt(str_score);
+    }
+	
+	//"clearcache" hack for firefox
+	var isFirefox = typeof InstallTrigger !== 'undefined';
+		if (isFirefox == true) {
+			if (negyjegyu == true) {
+			document.getElementById("m1").value = "";
+			document.getElementById("m4").value = "";
+			document.getElementById("m7").value = "";
+			document.getElementById("m10").value = "";
+			document.getElementById("m11").value = "";
+			document.getElementById("n").value = "";
+			document.getElementById("radio1bal").checked = false;
+			document.getElementById("radio5b").checked = false;
+			} else {
+			document.getElementById("m3").value = "";
+			document.getElementById("m6").value = "";
+			document.getElementById("m9").value = "";
+			document.getElementById("radio1jobb").checked = false;			
+			}
+			document.getElementById("m2").value = "";
+			document.getElementById("m5").value = "";
+			document.getElementById("m8").value = "";
+			document.getElementById("j").value = "";
+			document.getElementById("l").value = "";
+			document.getElementById("h").value = "";
+			document.getElementById("radio3b").checked = false;
+			document.getElementById("radio4b").checked = false;
+			
+			}
+	
+	
+	//reload counter
+	var state = history.state || {};
+	var reloadCount = state.reloadCount || 1;
+	if (performance.navigation.type === 1) { 
+    state.reloadCount = ++reloadCount;
+    history.replaceState(state, null, document.URL);
+	} else if (reloadCount) {
+    delete state.reloadCount;
+    reloadCount = 1;
+    history.replaceState(state, null, document.URL);
+	}
+	
+	var szazalek = Math.floor(score / reloadCount *100);
+
+	document.getElementById("reloaded").innerHTML = reloadCount;
+	document.getElementById("szazalek").innerHTML = "Aktuális  százalék: " + szazalek;
+	document.getElementById("totalscore").innerHTML = "Összes pontszámod: " + totalscore;		
+	document.getElementById("score").innerHTML = "Aktuális pontszámod: " + score;
+	document.getElementById("a").innerHTML = a;
+	document.getElementById("b").innerHTML = b;
+	document.getElementById("c").innerHTML = c;
+	document.getElementById("d").innerHTML = d;
+	document.getElementById("e").innerHTML = e;
+	document.getElementById("f").innerHTML = f;
+	document.getElementById("g").innerHTML = g;
+		
+	function jorakatt1() {
+        var radio1bal = document.getElementById("radio1bal"),
+			radio1jobb = document.getElementById("radio1jobb");
+		if (negyjegyu == true && radio1bal.checked == true){
+			document.getElementById("radio11bal").style.backgroundColor = "#60b524";
+			document.getElementById("radio11jobb").style.display = "none";
+			document.getElementById("p2").style.display = "block";
+			document.getElementById("p1").style.display = "none";
+			document.getElementById("h").style.display = "block";
+			document.getElementById("radio1bal").readOnly = true;
+		} else if (negyjegyu == false && radio1bal.checked == true){
+			document.getElementById("radio11bal").style.backgroundColor = "red";
+		} else if (negyjegyu == true && radio1jobb.checked == true){
+			document.getElementById("radio11jobb").style.backgroundColor = "red";
+		} else if (negyjegyu == false && radio1jobb.checked == true){
+			document.getElementById("radio11bal").style.display = "none";
+			document.getElementById("radio11jobb").style.backgroundColor = "#60b524";
+			document.getElementById("p2").style.display = "block";
+			document.getElementById("p1").style.display = "none";
+			document.getElementById("h").style.display = "block";
+			document.getElementById("radio1jobb").readOnly = true;
+			}
+    }
+	// beolvassa következő osztandó számot, megnézi, hogy jó-e a megoldás következő jegye
+	function osztas() { 
+		var hanyados1 = document.getElementById("h").value;	
+					
+		if (negyjegyu == true) {
+			if (hanyados1 == Math.floor((10*a+b) / oszto)) {
+			document.getElementById("h").style.backgroundColor = "#60b524";
+			document.getElementById("h").readOnly = true;
+			document.getElementById("p3").style.display = "block";
+			document.getElementById("m1").style.display = "block";
+			document.getElementById("m2").style.display = "block";
+			document.getElementById("p2").style.display = "none";
+			document.getElementById("left-arrow").style.display = "inline";
+			} else {
+			document.getElementById("h").style.backgroundColor = "red";
+			}
+		} else {
+			if (hanyados1 == Math.floor((100*a+10*b+c) / oszto)) {
+			document.getElementById("h").style.backgroundColor = "#60b524";
+			document.getElementById("h").readOnly = true;
+			document.getElementById("p3").style.display = "block";
+			document.getElementById("p2").style.display = "none";
+			document.getElementById("m3").style.display = "block";
+			document.getElementById("m2").style.display = "block";
+			document.getElementById("left-arrow").style.display = "inline";
+			} 
+			else {
+			document.getElementById("h").style.backgroundColor = "red";
+			}
+		}
+	}
+	function maradek() { 
+		var m1 =  document.getElementById("m1").value,
+			m2 =  document.getElementById("m2").value,
+			m3 =  document.getElementById("m3").value,
+			h = document.getElementById("h").value;
+		if (negyjegyu == true) {
+			elsoMaradek = (10*a + b) % oszto;
+		} else {
+			elsoMaradek = (100*a+10*b+c) % oszto;
+		}
+		
+		var elsojegy = Math.floor(elsoMaradek / 10),
+			masodikjegy = elsoMaradek - elsojegy*10;
+		if (negyjegyu == true && elsoMaradek >= 10) {
+			if (m2 == masodikjegy && m2.length >0) {
+			document.getElementById("m2").style.backgroundColor = "#60b524";
+			document.getElementById("m2").readOnly = true;
+			} else {
+			document.getElementById("m2").style.backgroundColor = "red";
+			}
+			if (m1 == elsojegy && m1.length >0){ 
+			document.getElementById("m1").style.backgroundColor = "#60b524";
+			document.getElementById("m1").readOnly = true;
+			} else {	
+			document.getElementById("m1").style.backgroundColor = "red";
+			}
+		} else if ((negyjegyu == false) && (elsoMaradek >= 10)) {
+			if (m3 == masodikjegy && m3.length> 0) {
+			document.getElementById("m3").style.backgroundColor = "#60b524";
+			document.getElementById("m3").readOnly = true;
+			} else {
+			document.getElementById("m3").style.backgroundColor = "red";
+			}
+			if (m2 == elsojegy && m2.length >0){ 
+			document.getElementById("m2").style.backgroundColor = "#60b524";
+			document.getElementById("m2").readOnly = true;
+			} else {	
+			document.getElementById("m2").style.backgroundColor = "red";
+			}
+		} else if ((negyjegyu == false) && (elsoMaradek < 10)) {
+			if (m2 == "0") {
+			document.getElementById("m2").style.backgroundColor = "#60b524";
+			document.getElementById("m2").readOnly = true;
+			} else {
+			document.getElementById("m2").style.backgroundColor = "red";
+			}
+			if (m3 == elsoMaradek && m3.length >0){ 
+			document.getElementById("m3").style.backgroundColor = "#60b524";
+			document.getElementById("m3").readOnly = true;
+			} else {	
+			document.getElementById("m3").style.backgroundColor = "red";
+			}
+			
+		} else if ((negyjegyu == true) && (elsoMaradek < 10)) {
+			if (m1 == "0") {
+			document.getElementById("m1").style.backgroundColor = "#60b524";
+			document.getElementById("m1").readOnly = true;
+			} else {
+			document.getElementById("m1").style.backgroundColor = "red";
+			}
+			if (m2 == elsoMaradek && m2.length >0){ 
+			document.getElementById("m2").style.backgroundColor = "#60b524";
+			document.getElementById("m2").readOnly = true;
+			} else {	
+			document.getElementById("m2").style.backgroundColor = "red";
+			}
+			
+		}
+		var colorm1 = document.getElementById("m1").style.backgroundColor,
+			colorm2 = document.getElementById("m2").style.backgroundColor,
+			colorm3 = document.getElementById("m3").style.backgroundColor;
+		if ((colorm1 == "rgb(96, 181, 36)" && colorm2 == "rgb(96, 181, 36)") || (colorm2 == "rgb(96, 181, 36)" && colorm3 == "rgb(96, 181, 36)")) {
+			document.getElementById("p4").style.display = "block";
+			document.getElementById("p3").style.display = "none";
+			document.getElementById("left-arrow").style.display = "none";
+			if (negyjegyu == true) {
+			document.getElementById("radio3").style.display = "block";			
+			} else {
+			document.getElementById("radio4").style.display = "block";
+			} 
+		}
+	} 	
+	function jlatszon() {
+		document.getElementById("j").style.display = "block";
+		document.getElementById("c17").innerHTML = c;		
+		document.getElementById("radio11bal").style.display = "none";
+		document.getElementById("radio11jobb").style.display = "none";
+	} 
+	function osztas2()  { 
+		var hanyados2 = document.getElementById("j").value,
+			m1 = document.getElementById("m1").value,
+			m2 = document.getElementById("m2").value,
+			ellenor = Math.floor((100*m1+10*m2+c) / oszto);
+		
+		if (negyjegyu == true) {
+			if (hanyados2 == Math.floor((100*m1+10*m2+c) / oszto)) {
+			document.getElementById("j").style.backgroundColor = "#60b524";
+			document.getElementById("j").readOnly = true;
+			document.getElementById("p3").style.display = "block";
+			document.getElementById("m4").style.display = "block";
+			document.getElementById("m5").style.display = "block";
+			document.getElementById("p4").style.display = "none";
+			document.getElementById("left-arrow").style.display = "inline";
+			} else {
+			document.getElementById("j").style.backgroundColor = "red";
+			}
+		} else {
+			var m3 = document.getElementById("m3").value;
+			if (hanyados2 == Math.floor((100*m2+10*m3+d) / oszto)) {
+			document.getElementById("j").style.backgroundColor = "#60b524";
+			document.getElementById("j").readOnly = true;
+			document.getElementById("p3").style.display = "block";
+			document.getElementById("p4").style.display = "none";
+			document.getElementById("m6").style.display = "block";
+			document.getElementById("m5").style.display = "block";
+			document.getElementById("left-arrow").style.display = "inline";
+			} 
+			else {
+			document.getElementById("j").style.backgroundColor = "red";
+			}
+		}
+	}
+	function jllatszon() {
+		if (negyjegyu == true) {
+			document.getElementById("l").style.display = "block";
+			document.getElementById("c32").innerHTML = d;
+			} else {
+			document.getElementById("j").style.display = "block";
+			document.getElementById("c18").innerHTML = d;
+			}
+		document.getElementById("radio3").style.display = "none";
+		document.getElementById("radio11jobb").style.display = "none";
+	}
+	function lnlatszon () {
+		if (negyjegyu == true) {
+			document.getElementById("n").style.display = "block";
+			document.getElementById("c47").innerHTML = e;
+			} else {
+			document.getElementById("l").style.display = "block";
+			document.getElementById("c33").innerHTML = e;
+			}
+		
+		document.getElementById("radio3").style.display = "none";
+		document.getElementById("radio4").style.display = "none";
+	}
+	function osztas3()  { 
+		var hanyados3 = document.getElementById("l").value,
+			m4 = document.getElementById("m4").value,
+			m5 = document.getElementById("m5").value;
+		
+		if (negyjegyu == true) {
+			if (hanyados3 == Math.floor((100*m4+10*m5+d) / oszto)) {
+			document.getElementById("l").style.backgroundColor = "#60b524";
+			document.getElementById("l").readOnly = true;
+			document.getElementById("p3").style.display = "block";
+			document.getElementById("m7").style.display = "block";
+			document.getElementById("m8").style.display = "block";
+			document.getElementById("p4").style.display = "none";
+			document.getElementById("left-arrow").style.display = "inline";
+			} else {
+			document.getElementById("l").style.backgroundColor = "red";
+			}
+		} else {
+			var m6 = document.getElementById("m6").value;
+			if (hanyados3 == Math.floor((100*m5+10*m6+e) / oszto)) {
+			document.getElementById("l").style.backgroundColor = "#60b524";
+			document.getElementById("l").readOnly = true;
+			document.getElementById("p3").style.display = "block";
+			document.getElementById("p4").style.display = "none";
+			document.getElementById("m9").style.display = "block";
+			document.getElementById("m8").style.display = "block";
+			document.getElementById("left-arrow").style.display = "inline";
+			} 
+			else {
+			document.getElementById("l").style.backgroundColor = "red";
+			}
+		}
+	}
+	function maradek2() {
+		
+		var	m5 = document.getElementById("m5").value,
+			m2 = document.getElementById("m2").value;
+			
+		if (negyjegyu == true) {
+			var m4 = document.getElementById("m4").value,
+				m1 = document.getElementById("m1").value;
+			elsoMaradek = (100*m1 + 10*m2 + c) % oszto;
+		} else {
+			var m3 = document.getElementById("m3").value,
+				m6 = document.getElementById("m6").value;
+			elsoMaradek = (100*m2 + 10*m3 + d) % oszto;
+		}
+		
+		var elsojegy = Math.floor(elsoMaradek / 10),
+			masodikjegy = elsoMaradek - elsojegy*10;
+		if (negyjegyu == true && elsoMaradek >= 10) {
+			if (m5 == masodikjegy && m5.length >0) {
+			document.getElementById("m5").style.backgroundColor = "#60b524";
+			document.getElementById("m5").readOnly = true;
+			} else {
+			document.getElementById("m5").style.backgroundColor = "red";
+			}
+			if (m4 == elsojegy && m4.length >0){ 
+			document.getElementById("m4").style.backgroundColor = "#60b524";
+			document.getElementById("m4").readOnly = true;			
+			} else {	
+			document.getElementById("m4").style.backgroundColor = "red";
+			}
+		} else if ((negyjegyu == false) && (elsoMaradek >= 10)) {
+			if (m6 == masodikjegy && m6.length> 0) {
+			document.getElementById("m6").style.backgroundColor = "#60b524";
+			document.getElementById("m6").readOnly = true;
+			} else {
+			document.getElementById("m6").style.backgroundColor = "red";
+			}
+			if (m5 == elsojegy && m5.length >0){ 
+			document.getElementById("m5").style.backgroundColor = "#60b524";
+			document.getElementById("m5").readOnly = true;
+			} else {	
+			document.getElementById("m5").style.backgroundColor = "red";
+			}
+		} else if ((negyjegyu == false) && (elsoMaradek < 10)) {
+			if (m5 == "0") {
+			document.getElementById("m5").style.backgroundColor = "#60b524";
+			document.getElementById("m5").readOnly = true;
+			} else {
+			document.getElementById("m5").style.backgroundColor = "red";
+			}
+			if (m6 == elsoMaradek && m6.length >0){ 
+			document.getElementById("m6").style.backgroundColor = "#60b524";
+			document.getElementById("m6").readOnly = true;
+			} else {	
+			document.getElementById("m6").style.backgroundColor = "red";
+			}
+			
+		} else if ((negyjegyu == true) && (elsoMaradek < 10)) {
+			if (m4 == "0") {
+			document.getElementById("m4").style.backgroundColor = "#60b524";
+			document.getElementById("m4").readOnly = true;
+			} else {
+			document.getElementById("m4").style.backgroundColor = "red";
+			}
+			if (m5 == elsoMaradek && m5.length >0){ 
+			document.getElementById("m5").style.backgroundColor = "#60b524";
+			document.getElementById("m5").readOnly = true;
+			} else {	
+			document.getElementById("m5").style.backgroundColor = "red";
+			}
+			
+		}
+		var colorm4 = document.getElementById("m4").style.backgroundColor,
+			colorm5 = document.getElementById("m5").style.backgroundColor,
+			colorm6 = document.getElementById("m6").style.backgroundColor;
+		if ((colorm4 == "rgb(96, 181, 36)" && colorm5 == "rgb(96, 181, 36)") || (colorm5 == "rgb(96, 181, 36)" && colorm6 == "rgb(96, 181, 36)")) {
+			document.getElementById("p4").style.display = "block";
+			document.getElementById("p3").style.display = "none";
+			document.getElementById("left-arrow").style.display = "none";
+			if (negyjegyu == true) {
+			document.getElementById("radio4").style.display = "block";			
+			} else {
+			document.getElementById("radio5").style.display = "block";
+			} 
+		}
+	} 
+	function maradek3() {
+		
+		document.getElementById("m5").scrollIntoView();
+		
+		var	m8 = document.getElementById("m8").value,
+			m5 = document.getElementById("m5").value;
+			
+		if (negyjegyu == true) {
+			var m4 = document.getElementById("m4").value,
+				m7 = document.getElementById("m7").value;
+			elsoMaradek = (100*m4 + 10*m5 + d) % oszto;
+		} else {
+			var m9 = document.getElementById("m9").value,
+				m6 = document.getElementById("m6").value;
+			elsoMaradek = (100*m5 + 10*m6 + e) % oszto;
+		}
+		
+		var elsojegy = Math.floor(elsoMaradek / 10),
+			masodikjegy = elsoMaradek - elsojegy*10;
+		if (negyjegyu == true && elsoMaradek >= 10) {
+			if (m8== masodikjegy && m8.length >0) {
+			document.getElementById("m8").style.backgroundColor = "#60b524";
+			document.getElementById("m8").readOnly = true;
+			} else {
+			document.getElementById("m8").style.backgroundColor = "red";
+			}
+			if (m7 == elsojegy && m7.length >0){ 
+			document.getElementById("m7").style.backgroundColor = "#60b524";
+			document.getElementById("m7").readOnly = true;			
+			} else {	
+			document.getElementById("m7").style.backgroundColor = "red";
+			}
+		} else if ((negyjegyu == false) && (elsoMaradek >= 10)) {
+			if (m9 == masodikjegy && m9.length> 0) {
+			document.getElementById("m9").style.backgroundColor = "#60b524";
+			document.getElementById("m9").readOnly = true;
+			} else {
+			document.getElementById("m9").style.backgroundColor = "red";
+			}
+			if (m8 == elsojegy && m8.length >0){ 
+			document.getElementById("m8").style.backgroundColor = "#60b524";
+			document.getElementById("m8").readOnly = true;
+			} else {	
+			document.getElementById("m8").style.backgroundColor = "red";
+			}
+		} else if ((negyjegyu == false) && (elsoMaradek < 10)) {
+			if (m8 == "0") {
+			document.getElementById("m8").style.backgroundColor = "#60b524";
+			document.getElementById("m8").readOnly = true;
+			} else {
+			document.getElementById("m8").style.backgroundColor = "red";
+			}
+			if (m9 == elsoMaradek && m9.length >0){ 
+			document.getElementById("m9").style.backgroundColor = "#60b524";
+			document.getElementById("m9").readOnly = true;
+			} else {	
+			document.getElementById("m9").style.backgroundColor = "red";
+			}
+			
+		} else if ((negyjegyu == true) && (elsoMaradek < 10)) {
+			if (m7 == "0") {
+			document.getElementById("m7").style.backgroundColor = "#60b524";
+			document.getElementById("m7").readOnly = true;
+			} else {
+			document.getElementById("m7").style.backgroundColor = "red";
+			}
+			if (m8 == elsoMaradek && m8.length >0){ 
+			document.getElementById("m8").style.backgroundColor = "#60b524";
+			document.getElementById("m8").readOnly = true;
+			} else {	
+			document.getElementById("m8").style.backgroundColor = "red";
+			}
+			
+		}
+		var colorm7 = document.getElementById("m7").style.backgroundColor,
+			colorm8 = document.getElementById("m8").style.backgroundColor,
+			colorm9 = document.getElementById("m9").style.backgroundColor;
+		if ((colorm7 == "rgb(96, 181, 36)" && colorm8 == "rgb(96, 181, 36)") || (colorm8 == "rgb(96, 181, 36)" && colorm9 == "rgb(96, 181, 36)")) {
+			document.getElementById("p3").style.display = "none";
+			document.getElementById("left-arrow").style.display = "none";
+			if (negyjegyu == true) {
+			document.getElementById("radio5").style.display = "block";
+			document.getElementById("p4").style.display = "block";			
+			} else {
+			document.getElementById("p5").style.display = "block";
+			score += 1;
+			totalscore +=1;
+			szazalek = Math.floor(score / reloadCount *100);
+			document.getElementById("szazalek").innerHTML = "Aktuális százalék: " + szazalek;
+			document.getElementById("score").innerHTML = "Elért pontszámod: " + score;
+			document.getElementById("totalscore").innerHTML = "Aktuális pontszámod: " + totalscore;
+			document.getElementById("p5button").style.display = "block";
+			window.scrollTo(0, 0);
+			} 
+		}
+	} 
+	function maradek4() {
+		
+		document.getElementById("m8").scrollIntoView();
+		var	m8 = document.getElementById("m8").value,
+			m10 = document.getElementById("m10").value,
+			m11 = document.getElementById("m11").value,
+			m7 = document.getElementById("m7").value,
+			elsoMaradek = (100*m7 + 10*m8 + e) % oszto,
+			elsojegy = Math.floor(elsoMaradek / 10),
+			masodikjegy = elsoMaradek - elsojegy*10;
+			
+		if (elsoMaradek >= 10) {
+			if (m11== masodikjegy && m11.length >0) {
+			document.getElementById("m11").style.backgroundColor = "#60b524";
+			document.getElementById("m11").readOnly = true;
+			} else {
+			document.getElementById("m11").style.backgroundColor = "red";
+			}
+			if (m10 == elsojegy && m10.length >0){ 
+			document.getElementById("m10").style.backgroundColor = "#60b524";
+			document.getElementById("m10").readOnly = true;			
+			} else {	
+			document.getElementById("m10").style.backgroundColor = "red";
+			}
+		} else {
+			if (m10 == "0") {
+			document.getElementById("m10").style.backgroundColor = "#60b524";
+			document.getElementById("m10").readOnly = true;
+			} else {
+			document.getElementById("m10").style.backgroundColor = "red";
+			}
+			if (m11 == elsoMaradek && m11.length >0){ 
+			document.getElementById("m11").style.backgroundColor = "#60b524";
+			document.getElementById("m11").readOnly = true;
+			} else {	
+			document.getElementById("m11").style.backgroundColor = "red";
+			}
+			
+		}
+		var colorm10 = document.getElementById("m10").style.backgroundColor,
+			colorm11 = document.getElementById("m11").style.backgroundColor;
+		if (colorm10 == "rgb(96, 181, 36)" && colorm11 == "rgb(96, 181, 36)") {
+			document.getElementById("p3").style.display = "none";
+			document.getElementById("left-arrow").style.display = "none";
+			score +=1;
+			totalscore += 1;
+			szazalek = Math.floor(score / reloadCount *100);
+			document.getElementById("szazalek").innerHTML = "Aktuális százalék: " + szazalek;
+			document.getElementById("score").innerHTML = "Elért pontszámod: " + score;
+			document.getElementById("totalscore").innerHTML = "Aktuális pontszámod: " + totalscore;
+			document.getElementById("p5button").style.display = "block";
+			document.getElementById("p5").style.display = "block";	
+			window.scrollTo(0, 0);
+		}
+	} 
+	function osztas4()  { 
+		var hanyados4 = document.getElementById("n").value,
+			m7 = document.getElementById("m7").value,
+			m8 = document.getElementById("m8").value;
+		if (hanyados4 == Math.floor((100*m7+10*m8+e) / oszto)) {
+			document.getElementById("n").style.backgroundColor = "#60b524";
+			document.getElementById("n").readOnly = true;
+			document.getElementById("p3").style.display = "block";
+			document.getElementById("m10").style.display = "block";
+			document.getElementById("m11").style.display = "block";
+			document.getElementById("p4").style.display = "none";
+			document.getElementById("left-arrow").style.display = "inline";
+		} else {
+			document.getElementById("n").style.backgroundColor = "red";
+		}
+	}
+	function reload() {	
+		localStorage.setItem("totalscore", totalscore);
+		sessionStorage.setItem("score", score);
+	  	location.reload();
+		}
+</script>
+</body>
+</html>
+<!DOCTYPE html>
+
