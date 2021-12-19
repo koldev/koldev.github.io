@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>koldev's homepage</title>
+  <link rel="shortcut icon" href="../img/favicon.ico" />
+  <style>
+    * {
+      font-family: Arial;
+      font-size: 40px;
+    }
+
+    input {
+      width: 100px;
+    }
+
+    div {
+      margin-top: 10px;
+    }
+
+    p {
+      margin: 0 0 10px 0;
+    }
+
+    p.red {
+      color: red;
+    }
+
+    p.green {
+      color: green;
+    }
+  </style>
+</head>
+
+<body>
+  <span id="a-op-b-eq"></span><input type="number" id="c" />
+  <div id="log"></div>
+  <script>
+    const spanAOpBEq = document.querySelector("span#a-op-b-eq");
+    const inputC = document.querySelector("input#c");
+    const divLog = document.querySelector("div#log");
+
+    let n = 0;
+    let a = 1;
+    let op = "⋅";
+    let b = 1;
+    let c = 1;
+    const multipliers = [2, 3, 3, 4, 4, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10];
+    const tables = [2, 3, 3, 3, 4, 4, 4, 5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 8, 8, 8, 10];
+
+    function getRandomInt(min, max) {
+      return Math.floor(Math.random() * (max - min) + min);
+    }
+
+    function update(check) {
+      if (check) {
+        const stringC = inputC.value.trim();
+        const userC = +stringC;
+        const p = document.createElement("p");
+        p.textContent = `${++n}. feladat: ${a} ${op} ${b} = ${c}`;
+        if (userC === c) {
+          p.textContent += ", ÜGYES VAGY!";
+          p.classList.add("green");
+        } else {
+          p.textContent += `, tehát ${userC} nem jó... gyakorolj tovább!`;
+          p.classList.add("red");
+        }
+        divLog.prepend(p);
+      }
+      const m = multipliers[getRandomInt(0, multipliers.length)];
+      const t = tables[getRandomInt(0, tables.length)];
+      const r = m * t;
+      op = Math.random() < 0.5 ? "⋅" : ":";
+      a = op === "⋅" ? m : r;
+      b = op === "⋅" ? t : t;
+      c = op === "⋅" ? r : m;
+      spanAOpBEq.textContent = `${a} ${op} ${b} = `;
+      inputC.value = "";
+    }
+
+    inputC.addEventListener("keyup", event => {
+      if (event.key === "Enter" && inputC.value !== "") {
+        update(true);
+      }
+    });
+
+    update(false);
+  </script>
+</body>
+
+</html>
