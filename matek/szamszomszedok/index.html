@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Matek - Számszomszédok</title>
+  <link rel="shortcut icon" href="../../img/favicon.ico" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+
+      box-sizing: border-box;
+
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      font-size: 20px;
+      font-weight: normal;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      padding: 20px 0;
+    }
+
+    table {
+      border: outset 2px gray;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      border: solid 1px black;
+    }
+
+    th {
+      padding: 5px 10px;
+      background: lightgray;
+      text-align: center;
+    }
+
+    th strong {
+      font-weight: bold;
+    }
+
+    td {
+      width: 100px;
+    }
+
+    td:first-child {
+      padding: 5px 10px;
+      text-align: center;
+    }
+
+    td input {
+      width: 100%;
+      padding: 5px 10px;
+      border: none;
+      outline: none;
+      text-align: center;
+    }
+
+    button {
+      padding: 5px 10px;
+      border: outset 2px gray;
+      outline: none;
+      background: lightgray;
+    }
+
+    button:active {
+      border-style: inset;
+    }
+
+    img {
+      width: 200px;
+      border: outset 2px gray;
+      border-radius: 20px;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <table>
+    <thead>
+      <tr>
+        <th rowspan="2">Szám</th>
+        <th colspan="4"><strong>Kisebb</strong> számszomszéd</th>
+      </tr>
+      <tr>
+        <th>Egyes</th>
+        <th>Tízes</th>
+        <th>Százas</th>
+        <th>Ezres</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td id="number-1"></td>
+        <td><input type="text" id="neighbor-1-1"></td>
+        <td><input type="text" id="neighbor-10-1"></td>
+        <td><input type="text" id="neighbor-100-1"></td>
+        <td><input type="text" id="neighbor-1000-1"></td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <thead>
+      <tr>
+        <th rowspan="2">Szám</th>
+        <th colspan="4"><strong>Nagyobb</strong> számszomszéd</th>
+      </tr>
+      <tr>
+        <th>Egyes</th>
+        <th>Tízes</th>
+        <th>Százas</th>
+        <th>Ezres</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td id="number-2"></td>
+        <td><input type="text" id="neighbor-1-2"></td>
+        <td><input type="text" id="neighbor-10-2"></td>
+        <td><input type="text" id="neighbor-100-2"></td>
+        <td><input type="text" id="neighbor-1000-2"></td>
+      </tr>
+    </tbody>
+  </table>
+  <button id="check" class="hidden">Ellenőrzés</button>
+  <button id="next" class="hidden">Következő</button>
+  <div id="message" class="hidden">Valami még nem jó...</div>
+  <img class="hidden" src="../../img/success.gif">
+  <script>
+    const tables = [getTable(1), getTable(2)];
+    const numbers = [0, 0];
+    
+    const checkButton = /** @type {HTMLButtonElement} */(document.querySelector("#check"));
+    checkButton.addEventListener("click", onCheckButtonClick);
+    
+    const nextButton = /** @type {HTMLButtonElement} */(document.querySelector("#next")); 
+    nextButton.addEventListener("click", onNextButtonClick);
+    
+    const messageDiv = /** @type {HTMLDivElement} */(document.querySelector("#message"));
+    const image = /** @type {HTMLImageElement} */(document.querySelector("img"));
+
+    /**
+     * @param {number} id
+     */
+    function getTable(id) {
+      return ({
+        numberCell: /** @type {HTMLTableCellElement} */(document.querySelector(`#number-${id}`)),
+        neighbor1Input: /** @type {HTMLInputElement} */(document.querySelector(`#neighbor-1-${id}`)),
+        neighbor10Input: /** @type {HTMLInputElement} */(document.querySelector(`#neighbor-10-${id}`)),
+        neighbor100Input: /** @type {HTMLInputElement} */(document.querySelector(`#neighbor-100-${id}`)),
+        neighbor1000Input: /** @type {HTMLInputElement} */(document.querySelector(`#neighbor-1000-${id}`))
+      });
+    }
+
+    function onCheckButtonClick() {
+      const success = checkTable(1) && checkTable(2);
+      checkButton.classList.toggle("hidden", success);
+      nextButton.classList.toggle("hidden", !success);
+      messageDiv.classList.toggle("hidden", success);
+      image.classList.toggle("hidden", !success);
+    }
+
+    /**
+     * @param {number} id
+     */
+    function checkTable(id) {
+      return (
+        round(id, 1, numbers[id - 1]) === +tables[id - 1].neighbor1Input.value &&
+        round(id, 2, numbers[id - 1]) === +tables[id - 1].neighbor10Input.value &&
+        round(id, 3, numbers[id - 1]) === +tables[id - 1].neighbor100Input.value &&
+        round(id, 4, numbers[id - 1]) === +tables[id - 1].neighbor1000Input.value
+      );
+    }
+
+    /**
+     * @param {number} id
+     * @param {number} digits
+     * @param {number} x
+     */
+    function round(id, digits, x) {
+      const p = 10 ** (digits - 1);
+      do {
+        x += id === 1 ? -1 : +1;
+      } while (x % p > 0);
+      return x;
+    }
+
+    function onNextButtonClick() {
+      initTable(1);
+      initTable(2);
+      checkButton.classList.remove("hidden");
+      nextButton.classList.add("hidden");
+      messageDiv.classList.add("hidden");
+      image.classList.add("hidden");
+      tables[0].neighbor1Input.focus();
+    }
+
+    /**
+     * @param {number} id
+     */
+    function initTable(id) {
+      const min = 1000;
+      const max = 9999;
+      numbers[id - 1] = Math.floor(Math.random() * (max - min + 1)) + min;
+      tables[id - 1].numberCell.textContent = "" + numbers[id - 1];
+      tables[id - 1].neighbor1Input.value = "";
+      tables[id - 1].neighbor10Input.value = "";
+      tables[id - 1].neighbor100Input.value = "";
+      tables[id - 1].neighbor1000Input.value = "";
+    }
+
+    onNextButtonClick();
+</script> 
+</body>
+</html>
