@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>koldev's homepage</title>
   <link rel="shortcut icon" href="../img/favicon.ico" />
   <style>
@@ -58,16 +59,19 @@
       if (check) {
         const stringC = inputC.value.trim();
         const userC = +stringC;
-        const p = document.createElement("p");
-        p.textContent = `${++n}. feladat: ${a} ${op} ${b} = ${c}`;
+        let s = `${++n}. feladat: ${a} ${op} ${b} = ${c}`;
+        let k = "";
         if (userC === c) {
-          p.textContent += ", ÜGYES VAGY!";
-          p.classList.add("green");
+          s += ", ÜGYES VAGY!";
+          k = "green";
         } else {
-          p.textContent += `, tehát ${userC} nem jó... gyakorolj tovább!`;
-          p.classList.add("red");
+          s += `, tehát ${userC} nem jó... gyakorolj tovább!`;
+          k = "red";
         }
+        const p = document.createElement("p");
         divLog.prepend(p);
+        p.textContent = s;
+        p.classList.add(k);
       }
       const m = multipliers[getRandomInt(0, multipliers.length)];
       const t = tables[getRandomInt(0, tables.length)];
